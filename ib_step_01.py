@@ -81,3 +81,6 @@ ts_companies = ts_data[pd.notnull(ts_data['company_2'])]
 ts_companies = ts_companies.ix[0:, ['zip','address_1','address_4','company_1','company_2','id']]
 print ts_companies.head
 
+# company names containing ltd
+ltd = ts_companies[ts_companies['company_2'].str.contains('Ltd')]
+print ltd.head
