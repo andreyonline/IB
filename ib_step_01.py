@@ -66,8 +66,18 @@ sys.exit()
 # PHASE 2 #################################################################################################
 
 # create demo - register with companies to simulate exact match step
+''' Old code
 tds_pattern = pd.DataFrame()
 tds_pattern = ['10 SQUARED','POCKLINGTON INDUSTRIAL ESTATE   YORK']
+'''
 
-# etc.
+# company register. Andrey
+ts_data = pd.read_csv("csv_paf.csv", sep=',')
+ts_data.columns = ['zip','address_1', 'address_2', 'address_3', 'address_4', 'address_5',
+                        'address_6', 'address_7', 'address_8', 'address_9', 'company_1', 'company_2', 'id',
+                        'code_1', 'code_2', 'code_3']
+
+ts_companies = ts_data[pd.notnull(ts_data['company_2'])]
+ts_companies = ts_companies.ix[0:, ['zip','address_1','address_4','company_1','company_2','id']]
+print ts_companies.head
 
