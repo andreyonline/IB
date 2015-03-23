@@ -86,3 +86,7 @@ company_set = ts_companies.ix[0:, ['company_2']]
 company_set = company_set[company_set['company_2'].str.contains(" Ltd| plc", na=False)]
 company_set['classification'] = 2
 print company_set.head
+
+# individuals register. Sample individuals set, randomly generated - classifiaction also added
+ts_individuals = pd.read_csv('C:/Users/andrey.sobolev/Desktop/BIPB/Projects/Royal Mail/Data/name_data.csv', sep=',')
+print ts_individuals.head
