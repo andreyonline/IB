@@ -88,5 +88,15 @@ company_set['classification'] = 2
 print company_set.head
 
 # individuals register. Sample individuals set, randomly generated - classifiaction also added
-ts_individuals = pd.read_csv('C:/Users/andrey.sobolev/Desktop/BIPB/Projects/Royal Mail/Data/name_data.csv', sep=',')
+individuals_set = pd.read_csv('C:/Users/andrey.sobolev/Desktop/BIPB/Projects/Royal Mail/Data/name_data.csv', sep=',')
+
+individuals_set['classification'] = -2
 print ts_individuals.head
+
+#concatenating commercial and individual sets
+frames = company_set, individuals_set
+t_set = pd.concat(frames)
+t_set = t_set.reset_index(drop=True)
+print t_set.head
+
+
