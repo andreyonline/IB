@@ -74,16 +74,16 @@ tds_pattern = ['10 SQUARED','POCKLINGTON INDUSTRIAL ESTATE   YORK']
 # company register. Andrey
 ts_data = pd.read_csv("csv_paf.csv", sep=',')
 ts_data.columns = ['zip','address_1', 'address_2', 'address_3', 'address_4', 'address_5',
-                        'address_6', 'address_7', 'address_8', 'address_9', 'company_1', 'company_2', 'id',
+                        'address_6', 'address_7', 'address_8', 'address_9', 'name_1', 'Name', 'id',
                         'code_1', 'code_2', 'code_3']
 
-ts_companies = ts_data[pd.notnull(ts_data['company_2'])]
-ts_companies = ts_companies.ix[0:, ['zip','address_1','address_4','company_1','company_2','id']]
+ts_companies = ts_data[pd.notnull(ts_data['Name'])]
+ts_companies = ts_companies.ix[0:, ['zip','address_1','address_4','name_1','Name','id']]
 print ts_companies.head
 
 # definite companies set (based on Ltd / plc) - classifiaction also added
-company_set = ts_companies.ix[0:, ['company_2']]
-company_set = company_set[company_set['company_2'].str.contains(" Ltd| plc", na=False)]
+company_set = ts_companies.ix[0:, ['Name']]
+company_set = company_set[company_set['Name'].str.contains("Ltd| plc", na=False)]
 company_set['classification'] = 2
 print company_set.head
 
@@ -99,4 +99,6 @@ t_set = pd.concat(frames)
 t_set = t_set.reset_index(drop=True)
 print t_set.head
 
-
+#exact match. Populates 'classification' where match (currently only '2' as no idividuals' names in dataset
+matched = ts_data.merge(t_set, how='left', on='Name')
+print matched.head
